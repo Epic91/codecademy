@@ -27,7 +27,29 @@ const batch = [valid1, valid2, valid3, valid4, valid5, invalid1, invalid2, inval
 
 const validateCred = (arr) => {
     let reversedArr = arr.reverse();
-    console.log(reversedArr)
+    let sum = 0;
+
+    for (let i = 0; i < arr.length; i++){
+        let checkDigit = reversedArr[i]
+
+        // Every other digit is doubled
+        if (i % 2 === 0) {
+            let doubledDigit = checkDigit * 2
+            // console.log(doubledDigit)
+
+            if (doubledDigit > 9) {
+                doubledDigit = doubledDigit - 9 
+                sum += doubledDigit 
+
+                if (sum % 10 === 0) {
+                    console.log('valid')
+                } else {
+                    console.log('invalid')
+                }
+            }
+        }
+
+    }
 }
 // returns true when arr is valid
 // false when invalid
@@ -37,7 +59,4 @@ const findInvalidCards = (arr) => {
 // checks through the nested array for which numbers are invalid and return another nested array of invalid cards
 }
 
-
-validateCred(mystery1)
-
-validateCred(mystery1)
+validateCred(valid1)
