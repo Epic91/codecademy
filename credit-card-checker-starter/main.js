@@ -25,10 +25,19 @@ const batch = [valid1, valid2, valid3, valid4, valid5, invalid1, invalid2, inval
 
 // Add your functions below:
 
+const validateCred = (arr) => {
+    let reversedArr = arr.reverse();
+    console.log(reversedArr)
+}
+// returns true when arr is valid
+// false when invalid
+// NO MUTATING value
+
+const findInvalidCards = (arr) => {
+// checks through the nested array for which numbers are invalid and return another nested array of invalid cards
+}
 
 
+validateCred(mystery1)
 
-
-
-
-
+validateCred(mystery1)
