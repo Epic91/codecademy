@@ -108,7 +108,8 @@ const idInvalidCardCompanies = invalidNums => {
   console.log(idInvalidCardCompanies(batch)); // Find out which companies have mailed out invalid cards
 
 
-
+// To make it easier to test credit card numbers, create a function that accepts a string and converts it into an array of numbers like the initially provided arrays. (Check the hint for a helpful function)
+//Create a function that will convert invalid numbers into valid numbers.
 
 
 
