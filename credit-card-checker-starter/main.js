@@ -24,39 +24,108 @@ const batch = [valid1, valid2, valid3, valid4, valid5, invalid1, invalid2, inval
 
 
 // Add your functions below:
-
-const validateCred = (arr) => {
-    let reversedArr = arr.reverse();
-    let sum = 0;
-
-    for (let i = 0; i < arr.length; i++){
-        let checkDigit = reversedArr[i]
-
-        // Every other digit is doubled
-        if (i % 2 === 0) {
-            let doubledDigit = checkDigit * 2
-            // console.log(doubledDigit)
-
-            if (doubledDigit > 9) {
-                doubledDigit = doubledDigit - 9 
-                sum += doubledDigit 
-
-                if (sum % 10 === 0) {
-                    console.log('valid')
-                } else {
-                    console.log('invalid')
-                }
+const validateCred = arr => {
+    let sum = 0; // INITIALIZED AT 0
+    
+    // LOOPS STARTING AT THE END OF THE ARRAY
+    for (let i = arr.length - 1; i >= 0; i--) {  
+        // HOLDS THE REVERSED NUMBERS IN THE ARRAY
+        let currentVal = arr[i]
+        // IF THE CURRENTVAL HAS A REMAINDER OF 1, DOUBLE IT
+        if((arr.length - 1 - i) % 2 === 1) {
+            currentVal *= 2
+            // IF THE CURRENTVAL IS GREATER THAN 9, SUBTRACT 9 FROM IT
+            if (currentVal > 9) {
+                currentVal -= 9
             }
         }
-
+        // STORES ALL ADDED NUMBERS INSIDE OF THE PROVIDED ARRAY
+        sum += currentVal
     }
-}
-// returns true when arr is valid
-// false when invalid
-// NO MUTATING value
-
-const findInvalidCards = (arr) => {
-// checks through the nested array for which numbers are invalid and return another nested array of invalid cards
+    // RETURNS TRUE OR FALSE DEPENDING IF THE SUM IS DIVED BY 10 AND HAS A REMAINDER OF 0
+    return sum % 10 === 0;
 }
 
-validateCred(valid1)
+//TEST FUNCTION
+// console.log(validateCred(invalid1))
+
+const findInvalidCards = cards => {
+    let invalid = []    // initialized empty array
+    // ITERATES THE LENGHT OF THE ARRAY
+    for(let i = 0; i < cards.length; i++) { 
+        // HOLDS ALL NUMBERS IN THE ARRAYS
+        let currentCred = cards[i] 
+        // IF THE ARRAY PROVIDED IS NOT VALID IT GETS PUSHED INTO THE INVALID ARRAY
+        if (!validateCred(currentCred)){
+            invalid.push(currentCred)
+        }
+    }
+    // RETURNS ARRAY OF INVALID CARDS
+    return invalid
+}
+
+// TEST FUNCTION
+// console.log([valid1, valid2, valid3, valid4, valid5])
+// console.log([invalid1, invalid2, invalid3, invalid4, invalid5])
+// console.log(batch)
+
+const idInvalidCardCompanies = invalidNums => {
+    const companies = [] // INITIALIZED EMPTY ARRAY
+    // ITERATES THROUGH THE PROVIDED PARAMETER
+    for(let i = 0; i < invalidNums.length; i++) {
+        //CONDITIONAL ON THE ZEROTH INDEX OF THE ARRAY
+        switch (invalidNums[i][0]) {
+            case 3:
+                // IF INSIDE THE COMPANIES ARRAY 'AMEX' DOESNT EXIST, INSERT AMEX INSIDE THE COMPANIES ARRAY
+                if(companies.indexOf('Amex') === -1) {
+                    companies.push('Amex')
+                }
+                break
+            case 4:
+                if(companies.indexOf('Visa') === -1) {
+                    companies.push('Visa')
+                }
+                break
+            case 5:
+                if(companies.indexOf('Mastercard') === -1) {
+                    companies.push ('Mastercard')
+                }
+                break
+            case 6:
+                if (companies.indexOf('Discorver') === -1) {
+                    companies.push('Discover')
+                }
+                break
+            default:
+                console.log('Company not found')
+        }
+    }
+    return companies
+  }
+
+  console.log(idInvalidCardCompanies([invalid3])); // Should print['visa']
+  console.log(idInvalidCardCompanies([invalid2])); // Should print ['mastercard']
+  console.log(idInvalidCardCompanies(batch)); // Find out which companies have mailed out invalid cards
+
+
+
+
+
+
+
+
+
+
+
+/* NOTES:
+
+CONFLICT:
+- ALL VALID ARRAYS ARE COMING BACK INVALID BECAUSE THE MATH ISN'T ADDING UP CORRECTLY, THE CODE IS SIMPLY ADDING ONLY THE DOUBLED DIGITS UP.
+RESOLUTION: 
+INSIDE OF MY CONDITIONAL I STATED; IF THE INDEX INSIDE OF THE PROVIDED ARRAY IS DIVISIBLE BY 2 AND HAS A REMINDER OF 0 THEN IT SHOULD BE DOUBLED.
+
+- ALL OF THE NUMBERS IN THE ARRAY ARE CURRENTLY BEING DOUBLED
+RESOLUTION:
+I WAS MUTATING THE ARRAYS, THEREFORE ALL OF THE NUMBERS INSIDE OF THE ARRAY WERE BEING MUTATED, 
+
+*/
